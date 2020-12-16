@@ -14,10 +14,10 @@ print("被験者情報を入力:",end=" ")
 data.append(input())
 print("備考:",end=" ")
 data.append(input())
-print("素材数を入力:",end=" ")
+print("試料数を入力:",end=" ")
 n = input()
 if int(n) < 2:
-    print("素材数が足りません")
+    print("試料数が足りません")
     sys.exit()
 
 data.append(int(n))
@@ -26,7 +26,7 @@ print("%s を設定しました" % n)
 material=[]
 for i in range(int(n)):
     count = i + 1
-    print("素材%dの提示したい情報を入力:" % count , end=" ")
+    print("試料%dの提示したい情報を入力:" % count , end=" ")
     material.append(input())
 
 #print(material[0:])
@@ -45,7 +45,7 @@ for i in itertools.permutations(material, r=2):
 #print(iter_material)
 random.shuffle(iter_material)
 print("パラメータ↓")
-caption = ["被験者","備考","素材数:","素材:","試行回数:"]
+caption = ["被験者","備考","試料数:","試料:","試行回数:"]
 for i in range(5):
     print(caption[i],end=' ')
     print(data[i])
@@ -65,7 +65,7 @@ main_data=[]
 for i in range(try_num):
     count = i + 1
     print(iter_material[i])
-    print("%d回目 どちらの素材が選ばれましたか?:左 → 0 , 右 → 1 , 戻る→ r" % count)
+    print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 , 戻る→ r" % count)
     ans = input()
     if ans == "r" and i != 0:
         print("何回目に戻りますか?:",end=" ")
@@ -73,7 +73,7 @@ for i in range(try_num):
         if count_neo > count:
             print("存在しません")
             print(iter_material[i])
-            print("%d回目 どちらの素材が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
+            print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
             ans = input()
             l = list(iter_material[i])
             l.append(ans)
@@ -81,14 +81,14 @@ for i in range(try_num):
         else:
             box = count_neo-1
             print(iter_material[box])
-            print("%d回目 どちらの素材が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count_neo)
+            print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count_neo)
             ans_neo = input()
             l = list(iter_material[count_neo])
             l.append(ans_neo)
-            print(main_data[box])
             main_data[box]=l
+            print(main_data[box])
             print(iter_material[i])
-            print("%d回目 どちらの素材が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
+            print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
             ans = input()
             l = list(iter_material[i])
             l.append(ans)
@@ -101,7 +101,7 @@ for i in range(try_num):
     else:
         print("指定された数値を入力してください(初回は戻れません)")
         print(iter_material[i])
-        print("%d回目 どちらの素材が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
+        print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 (破壊的記録)" % count)
         ans = input()
         l = list(iter_material[i])
         l.append(ans)
