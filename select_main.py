@@ -90,7 +90,6 @@ def start(): # 実験開始処理
     else:
         print("中断します,最初からやり直してください.")
         exit_all()
-        
 def process(itertools_material,main_data,count,i,option): # メインインターフェース
         print(itertools_material[i])
         print("%d回目 どちらの試料が選ばれましたか?:左 → 0 , 右 → 1 , 戻る→ r" % count)
@@ -98,22 +97,26 @@ def process(itertools_material,main_data,count,i,option): # メインインタ�
         if ans == "r" and i != 0 and option != "final":
             print("何回目に戻りますか?:",end=" ")
             count_val = input()
-            count_change = int(count_val)
-            if count_val <= 0:
-                print("0回目以下は存在し得ません.")
-                l = process(itertools_material,main_data,count,i,option)
-            elif count_change >= count:
-                print("現在の回数より後へは戻れません.ファイナライズ画面で再度リクエストしてください.")
+            if str.isalpha(count_val):
+                print("数値を入力してください")
                 l = process(itertools_material,main_data,count,i,option)
             else:
-                i_change = count_change-1
-                l = process(itertools_material,main_data,count_change,i_change,option)
-                main_data[i_change]=l
-
-                if option == "final":
-                    final_process(itertools_material,main_data,count,i,option)
-                else:
+                count_change = int(count_val)
+                if count_change <= 0:
+                    print("0回目以下は存在し得ません.")
                     l = process(itertools_material,main_data,count,i,option)
+                elif count_change >= count:
+                    print("現在の回数より後へは戻れません.ファイナライズ画面で再度リクエストしてください.")
+                    l = process(itertools_material,main_data,count,i,option)
+                else:
+                    i_change = count_change-1
+                    l = process(itertools_material,main_data,count_change,i_change,option)
+                    main_data[i_change]=l
+
+                    if option == "final":
+                        final_process(itertools_material,main_data,count,i,option)
+                    else:
+                        l = process(itertools_material,main_data,count,i,option)
         elif ans == "0" or ans == "1":
             l = list(itertools_material[i])
             l.append(ans)
@@ -128,19 +131,23 @@ def final_process(itertools_material,main_data,countneo,i,option): # ファイ�
     if ans == "n" and i != 0 and ans != "0":
         print("何回目に戻りますか?:",end=" ")
         count_val = input()
-        count_change = int(count_val)
-        if count_val <= 0:
-            print("0回目以下は存在し得ません.")
-            l = final_process(itertools_material,main_data,countneo,i,option)
-        elif count_change >= countneo:
-            print("現在の回数より後へは戻れません.指定された回数は存在しません.")
-            l = final_process(itertools_material,main_data,countneo,i,option)
+        if str.isalpha(count_val):
+            print("数値を入力してください")
+            l = process(itertools_material,main_data,count,i,option)
         else:
-            option = "final"
-            i_change = count_change-1
-            l = process(itertools_material,main_data,count_change,i_change,option)
-            main_data[i_change]=l
-            l = final_process(itertools_material,main_data,countneo,i,option)
+            count_change = int(count_val)
+            if count_change <= 0:
+                print("0回目以下は存在し得ません.")
+                l = final_process(itertools_material,main_data,countneo,i,option)
+            elif count_change >= countneo:
+                print("現在の回数より後へは戻れません.指定された回数は存在しません.")
+                l = final_process(itertools_material,main_data,countneo,i,option)
+            else:
+                option = "final"
+                i_change = count_change-1
+                l = process(itertools_material,main_data,count_change,i_change,option)
+                main_data[i_change]=l
+                l = final_process(itertools_material,main_data,countneo,i,option)
     else:
         print("終了処理を開始します.")
         print("※ 処理中はプログラムを中断しないでください")
