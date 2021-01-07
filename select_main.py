@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-# Thurston_paired_comparison_method/select_main.py
+# paired_comparison_method/select_main.py
 # made by kazuya yuda.
 import time
 import datetime
@@ -67,7 +67,7 @@ def material_get(n): # 試料読み込み
 
 def itertools_make_material(material): # 試行回数分一対比較用の比較試料生成
     itertools_material=[]
-    for i in itertools.permutations(material, r=2):
+    for i in itertools.combinations_count(material, r=2):
         itertools_material.append(i)
     random.shuffle(itertools_material)
     return itertools_material
