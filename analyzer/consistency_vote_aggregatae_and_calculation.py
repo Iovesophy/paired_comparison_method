@@ -2,8 +2,6 @@
 # paired_comparison_method/consistencay_vote_aggregatae_and_calculation.py
 # made by kazuya yuda.
 
-import math
-import itertools
 import pandas as pd
 import csv
 import subprocess
@@ -68,6 +66,14 @@ def import_csv(): # 試料読み込み
             print(stdout_txt)
     print("拡張子を含めて、現在解析中の関連mainデータファイル名を入力してください")
     filename = './../selector/' + input()
+    if filename == "csv":
+        print("csvファイルを指定してください。")
+        sys.exit()
+    elif re.search("csv",filename):
+        pass
+    else:
+        print("csvファイルを指定してください。")
+        sys.exit()
     print(filename,end=" ")
     print("を読み込みました.")
     # info file　のインポート
@@ -136,6 +142,7 @@ def chi_2_0_caluculation(sigma_val,k,n):
     return chi_2_0
 
 def main():
+    welcome_mes()
     material = get_array_position()
     sum_all = material[0]
     sum_2 = material[1]
