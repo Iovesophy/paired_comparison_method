@@ -11,7 +11,7 @@ import pandas as pd
 import csv
 
 def welcome_mes(): # 起動時のメッセージ
-    print("Welcome to サーストン一対比較法実験集計システムver2:2021,1,3")
+    print("Welcome to 対比較法実験集計システムver2:2021,1,3")
     print("Thurston paired comparison method data processing software, TPCMDPS")
     print("made by kazuya yuda.")
 
