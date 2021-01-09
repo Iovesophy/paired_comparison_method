@@ -72,6 +72,10 @@ def get_n(info):
     n = int(str(info[4]).replace("[","").replace("]","").replace("\'",""))
     return n
 
+def get_uname(info):
+    uname = str(info[0]).replace("[","").replace("]","").replace("\'","")
+    return uname
+
 def f_calculation(info):
     k = get_k(info)
     k_1 = k * (k-1) * (k-2)
@@ -108,6 +112,7 @@ def make_vote_list_and_calculation(info,material):
     # infoからk,n読み込み
     k = get_k(info)
     n = get_n(info)
+    user_name = get_uname(info)
 
     # list 横軸作成
     vote_list = []
@@ -158,7 +163,13 @@ def make_vote_list_and_calculation(info,material):
     print(vote_list_all_np)
 
     now = datetime.datetime.now()
-    np.savetxt('./view_data/' + now.strftime('%Y%m%d_%H%M%S') + '.csv', vote_list_all_np, delimiter=',', fmt='%s')
+    print("viewファイルファイルを作成しますか？y,n:",end=" ")
+    ans = input()
+    if ans == "y":
+        np.savetxt('./view_data/' + user_name + now.strftime('%Y%m%d_%H%M%S') + '.csv', vote_list_all_np, delimiter=',', fmt='%s')
+        print("表示用ファイルが保存されました。")
+    else:
+        print("表示用ファイルは保存されませんでした。")
 
     # 計算用記号→0
     for i in range(k+1):
@@ -175,7 +186,6 @@ def make_vote_list_and_calculation(info,material):
         count += 1
 
     vote_sum = np.sum(vote_list_all_np, axis=1)
-    np.savetxt('./analyze_data/' + now.strftime('%Y%m%d_%H%M%S') + '.csv',vote_list_all_np, delimiter=',', fmt='%d')
 
     print("得票 a_i：",end=" ")
     print(vote_sum)
@@ -188,6 +198,29 @@ def make_vote_list_and_calculation(info,material):
         vote_calc_result += vote_calc
 
     d = float(1/ 6) * float(k) * (float(k)-1.0) * (float(k)-2.0) - 0.5 * float(vote_calc_result)
+
+    f = f_calculation(info)
+    print("自由度f：",end=" ")
+    print(f)
+
+    zeta = zeta_calculation(f,d,info)
+    print("一意性係数ζ ：",end=" ")
+    print(zeta)
+
+    chi_2_0 = chi_2_0_caluculation(f,d,info)
+    print("カイ二乗値：",end=" ")
+    print(chi_2_0)
+
+    print("一巡三角形の個数は：",end=" ")
+    print(d,end=" 個")
+    print("ですが、一致性解析用ファイルを作成しますか？y,n:",end=" ")
+    ans = input()
+    if ans == "y":
+        np.savetxt('./analyze_data/' + user_name + now.strftime('%Y%m%d_%H%M%S') + '.csv',vote_list_all_np, delimiter=',', fmt='%d')
+        print("解析用ファイルが保存されました。")
+    else:
+        print("解析用ファイルは保存されませんでした。")
+
     return d
 
 def main():
