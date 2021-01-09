@@ -9,6 +9,7 @@ import csv
 import subprocess
 import re
 import numpy as np
+import datetime
 
 def welcome_mes(): # 起動時のメッセージ
     print("Welcome to 一対比較法得票集計システムver2:2021,1,3")
@@ -20,14 +21,14 @@ def import_csv(): # 試料読み込み
     info=[]
 
     # ファイル名確認
-    return_code = subprocess.check_output(['ls'])
+    return_code = subprocess.check_output(['ls','./../selector'])
     code = return_code.split(b"\n")
     for i in range(len(code)):
         stdout_txt = str(code[i]).replace("b","").replace('\'',"")
         if re.search("csv",stdout_txt) and stdout_txt != "sample_info.csv":
             print(stdout_txt)
     print("拡張子を含めて、解析したいmainデータファイル名を入力してください")
-    filename = input()
+    filename = './../selector/' + input()
     print(filename,end=" ")
     print("を読み込みました.")
     print("集計開始してよろしいですか?y,n:", end=" ")
@@ -156,6 +157,9 @@ def make_vote_list_and_calculation(info,material):
     print("得票表")
     print(vote_list_all_np)
 
+    now = datetime.datetime.now()
+    np.savetxt('./view_data/' + now.strftime('%Y%m%d_%H%M%S') + '.csv', vote_list_all_np, delimiter=',', fmt='%s')
+
     # 計算用記号→0
     for i in range(k+1):
         vote_list_all_np[i][i] = 0
@@ -171,6 +175,7 @@ def make_vote_list_and_calculation(info,material):
         count += 1
 
     vote_sum = np.sum(vote_list_all_np, axis=1)
+    np.savetxt('./analyze_data/' + now.strftime('%Y%m%d_%H%M%S') + '.csv',vote_list_all_np, delimiter=',', fmt='%d')
 
     print("得票 a_i：",end=" ")
     print(vote_sum)
