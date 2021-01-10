@@ -1,4 +1,4 @@
-# 一対比較法における一意性の検定
+# 一対比較法
 
 記事にまとめてます。
 https://zenn.dev/_kazuya/articles/0e0c95f82cb931
