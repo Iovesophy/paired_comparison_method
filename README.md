@@ -6,7 +6,7 @@ https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 # 使い方
 
 PCPS(実験補助機能)
-※実行前にsample_info.cavに試料情報を入力すること。
+※実行前にsample_info.csvに試料情報を入力すること。
 
 ```
 $ cd selector/
