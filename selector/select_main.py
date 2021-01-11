@@ -177,7 +177,7 @@ def main(): # メインops
 
     N = int(data[2]) # 試料数取得
 
-    try_num = permutations_count(N,2) # 試行回数取得(順列を計算)
+    try_num = combinations_count(N,2) # 試行回数取得(順列を計算)
     data.append(try_num)
 
     itertools_material = itertools_make_material(material) # 試料をシャッフル,取り出し
