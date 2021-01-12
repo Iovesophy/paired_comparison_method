@@ -9,6 +9,7 @@ import re
 import numpy as np
 import datetime
 import sys
+import datetime
 
 def welcome_mes(): # 起動時のメッセージ
     print("Welcome to 一対比較法得票集計システムver2:2021,1,3")
@@ -28,7 +29,7 @@ def import_csv(): # 試料読み込み
             stdout_txt = str(code[i]).replace("b","").replace('\'',"")
             if re.search("csv",stdout_txt):
                 print(stdout_txt)
-        print("拡張子を含めて、解析したいmainデータファイル名を入力してください")
+        print("拡張子を含めて、一意性を確認済みの解析データファイル名を入力してください")
         filename = input()
         if filename == "csv":
             print("csvファイルを指定してください。")
@@ -57,6 +58,9 @@ def import_csv(): # 試料読み込み
     if n <= 2:
         print("人数が足りません。")
         sys.exit()
+    f = open('n.txt', 'w')
+    f.write(str(n))
+    f.close()
     info=[]
     return_code = subprocess.check_output(['ls','./../selector'])
     code = return_code.split(b"\n")
@@ -64,7 +68,7 @@ def import_csv(): # 試料読み込み
         stdout_txt = str(code[i]).replace("b","").replace('\'',"")
         if re.search("csv",stdout_txt) and stdout_txt != "sample_info.csv":
             print(stdout_txt)
-    print("拡張子を含めて、現在解析中の関連mainデータファイル名を入力してください")
+    print("拡張子を含めて、現在解析中の関連mainデータファイル名を入力してください(実験基本情報をロードするため)")
     filename = './../selector/' + input()
     if filename == "csv":
         print("csvファイルを指定してください。")
@@ -86,6 +90,15 @@ def import_csv(): # 試料読み込み
 
     material[1] = info
     material[2] = n
+
+    now = datetime.datetime.now()
+    print("プロット用ファイルを作成しますか？y,n:",end=" ")
+    ans = input()
+    if ans == "y":
+        np.savetxt('./plot_data/' + "plotdata" + "_calculation_" + now.strftime('%Y%m%d_%H%M%S') + '.csv',material[0], delimiter=',', fmt='%d')
+        print("解析用ファイルが保存されました。")
+    else:
+        print("解析用ファイルは保存されませんでした。")
 
     return material
 
