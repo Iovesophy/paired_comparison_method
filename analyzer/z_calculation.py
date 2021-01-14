@@ -78,7 +78,12 @@ def get_n():
     path = './n.txt'
     with open(path) as f:
         s = f.read()
-    return int(s)
+    if s = "":
+        print("一致性の検定が完了していません。")
+        sys.exit()
+    else:
+        return int(s)
+
 
 def get_k(info):
     k = int(str(info[2]).replace("[","").replace("]","").replace("\'",""))
