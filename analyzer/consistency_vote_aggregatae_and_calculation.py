@@ -22,45 +22,83 @@ def import_csv(): # 試料読み込み
     count = 0
     n = 1
     while loop_ans < 2:
-        # ファイル名確認
-        return_code = subprocess.check_output(['ls','./analyze_data'])
-        code = return_code.split(b"\n")
-        for i in range(len(code)):
-            stdout_txt = str(code[i]).replace("b","").replace('\'',"")
-            if re.search("csv",stdout_txt):
-                print(stdout_txt)
-        print("拡張子を含めて、一意性を確認済みの解析データファイル名を入力してください")
-        filename = input()
-        if filename == "csv":
-            print("csvファイルを指定してください。")
+        print("一括で解析済みデータを読み込みますか？y,n:",end = " ")
+        all_import_ans = input()
+        if all_import_ans == "y":
+            # ファイル名確認
+            return_code = subprocess.check_output(['ls','./analyze_data'])
+            code = return_code.split(b"\n")
+            for i in range(len(code)):
+                stdout_txt = str(code[i]).replace("b","").replace('\'',"")
+                if re.search("csv",stdout_txt):
+                    filename = stdout_txt
+                    if filename == "csv":
+                        print("エラー:csvファイルを確認してください。")
+                        sys.exit()
+                    elif re.search("csv",filename):
+                        pass
+                    else:
+                        print("エラー:csvファイルを確認してください。")
+                        sys.exit()
+                    print(filename,end=" ")
+                    print("を読み込みました.")
+                    n += 1
+                    if count == 0 and filename != "":
+                        material[0] = np.loadtxt('./analyze_data/'+filename, delimiter=',')
+                        count += 1
+                    elif filename != "":
+                        material[0] += np.loadtxt('./analyze_data/'+filename, delimiter=',')
+                    else:
+                        pass
+            if n <= 2:
+                print("人数が足りません。")
+                sys.exit()
+            f = open('n.txt', 'w')
+            f.write(str(n))
+            f.close()
+        elif all_import_ans == "":
+            print("中断します。")
             sys.exit()
-        elif re.search("csv",filename):
-            pass
         else:
-            print("csvファイルを指定してください。")
+            # ファイル名確認
+            return_code = subprocess.check_output(['ls','./analyze_data'])
+            code = return_code.split(b"\n")
+            for i in range(len(code)):
+                stdout_txt = str(code[i]).replace("b","").replace('\'',"")
+                if re.search("csv",stdout_txt):
+                    print(stdout_txt)
+            print("拡張子を含めて、一意性を確認済みの解析データファイル名を入力してください")
+            filename = input()
+            if filename == "csv":
+                print("csvファイルを指定してください。")
+                sys.exit()
+            elif re.search("csv",filename):
+                pass
+            else:
+                print("csvファイルを指定してください。")
+                sys.exit()
+            print(filename,end=" ")
+            print("を読み込みました.")
+            if count == 0 and filename != "":
+                material[0] = np.loadtxt('./analyze_data/'+filename, delimiter=',')
+                count += 1
+            elif filename != "":
+                material[0] += np.loadtxt('./analyze_data/'+filename, delimiter=',')
+            else:
+                pass
+            print("読み込みを続けますか？y,n:",end=" ")
+            ans = input()
+            if ans == "n":
+                loop_ans = 2
+            else:
+                n += 1
+        if n <= 2:
+            print("人数が足りません。")
             sys.exit()
-        print(filename,end=" ")
-        print("を読み込みました.")
-        if count == 0 and filename != "":
-            material[0] = np.loadtxt('./analyze_data/'+filename, delimiter=',')
-            count += 1
-        elif filename != "":
-            material[0] += np.loadtxt('./analyze_data/'+filename, delimiter=',')
-        else:
-            pass
+        f = open('n.txt', 'w')
+        f.write(str(n))
+        f.close()
 
-        print("読み込みを続けますか？y,n:",end=" ")
-        ans = input()
-        if ans == "n":
-            loop_ans = 2
-        else:
-            n += 1
-    if n <= 2:
-        print("人数が足りません。")
-        sys.exit()
-    f = open('n.txt', 'w')
-    f.write(str(n))
-    f.close()
     info=[]
     return_code = subprocess.check_output(['ls','./../selector'])
     code = return_code.split(b"\n")
