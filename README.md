@@ -5,6 +5,16 @@ https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 
 # 使い方
 
+セットアップ
+
+```
+$ cd selector/
+$ python3 selector/setup.py
+
+$ cd analyzer/
+$ python3 analyzer/setup.py
+```
+
 PCPS(実験補助機能)
 ※実行前にsample_info.csvに試料情報を入力すること。
 
