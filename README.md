@@ -4,8 +4,9 @@
 https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 
 # 動作環境（作者の環境）
-Python 3.9.1 (default, Dec 24 2020, 16:23:16)
-macOS Big Sur ver11.1（このOSで動作を確認）
+
++ Python 3.9.1 (default, Dec 24 2020, 16:23:16)  
++ macOS Big Sur ver11.1（このOSで動作を確認）  
 
 # 使い方
 
