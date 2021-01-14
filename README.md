@@ -26,3 +26,11 @@ PCCS(集計,一致性の検定)
 $ cd analyzer/
 $ python3 consistency_vote_aggregatae_and_calculation.py
 ```
+
+PCZPS(サーストン法ケースV、標準得点Z算出、尺度プロット)
+
+```
+$ cd analyzer/
+$ python3 z_calculation.py
+```
+
