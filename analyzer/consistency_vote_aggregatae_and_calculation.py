@@ -21,45 +21,45 @@ def import_csv(): # 試料読み込み
     loop_ans = 0
     count = 0
     n = 1
-    while loop_ans < 2:
-        print("一括で解析済みデータを読み込みますか？y,n:",end = " ")
-        all_import_ans = input()
-        if all_import_ans == "y":
-            # ファイル名確認
-            return_code = subprocess.check_output(['ls','./analyze_data'])
-            code = return_code.split(b"\n")
-            for i in range(len(code)):
-                stdout_txt = str(code[i]).replace("b","").replace('\'',"")
-                if re.search("csv",stdout_txt):
-                    filename = stdout_txt
-                    if filename == "csv":
-                        print("エラー:csvファイルを確認してください。")
-                        sys.exit()
-                    elif re.search("csv",filename):
-                        pass
-                    else:
-                        print("エラー:csvファイルを確認してください。")
-                        sys.exit()
-                    print(filename,end=" ")
-                    print("を読み込みました.")
-                    n += 1
-                    if count == 0 and filename != "":
-                        material[0] = np.loadtxt('./analyze_data/'+filename, delimiter=',')
-                        count += 1
-                    elif filename != "":
-                        material[0] += np.loadtxt('./analyze_data/'+filename, delimiter=',')
-                    else:
-                        pass
-            if n <= 2:
-                print("人数が足りません。")
-                sys.exit()
-            f = open('n.txt', 'w')
-            f.write(str(n))
-            f.close()
-        elif all_import_ans == "":
-            print("中断します。")
+    print("一括で解析済みデータを読み込みますか？y,n:",end = " ")
+    all_import_ans = input()
+    if all_import_ans == "y":
+        # ファイル名確認
+        return_code = subprocess.check_output(['ls','./analyze_data'])
+        code = return_code.split(b"\n")
+        for i in range(len(code)):
+            stdout_txt = str(code[i]).replace("b","").replace('\'',"")
+            if re.search("csv",stdout_txt):
+                filename = stdout_txt
+                if filename == "csv":
+                    print("エラー:csvファイルを確認してください。")
+                    sys.exit()
+                elif re.search("csv",filename):
+                    pass
+                else:
+                    print("エラー:csvファイルを確認してください。")
+                    sys.exit()
+                print(filename,end=" ")
+                print("を読み込みました.")
+                n += 1
+                if count == 0 and filename != "":
+                    material[0] = np.loadtxt('./analyze_data/'+filename, delimiter=',')
+                    count += 1
+                elif filename != "":
+                    material[0] += np.loadtxt('./analyze_data/'+filename, delimiter=',')
+                else:
+                    pass
+        if n <= 2:
+            print("人数が足りません。")
             sys.exit()
-        else:
+        f = open('n.txt', 'w')
+        f.write(str(n))
+        f.close()
+    elif all_import_ans == "":
+        print("中断します。")
+        sys.exit()
+    else:
+        while loop_ans < 2:
             # ファイル名確認
             return_code = subprocess.check_output(['ls','./analyze_data'])
             code = return_code.split(b"\n")
@@ -100,14 +100,13 @@ def import_csv(): # 試料読み込み
         f.close()
 
     info=[]
-    return_code = subprocess.check_output(['ls','./../selector'])
+    return_code = subprocess.check_output(['ls','./../selector/data'])
     code = return_code.split(b"\n")
     for i in range(len(code)):
         stdout_txt = str(code[i]).replace("b","").replace('\'',"")
         if re.search("csv",stdout_txt) and stdout_txt != "sample_info.csv":
             print(stdout_txt)
-    print("拡張子を含めて、現在解析中の関連mainデータファイル名を入力してください(実験基本情報をロードするため)")
-    filename = './../selector/' + input()
+    filename = './../selector/data/' + 'setting_file_info.csv'
     if filename == "csv":
         print("csvファイルを指定してください。")
         sys.exit()
@@ -119,8 +118,7 @@ def import_csv(): # 試料読み込み
     print(filename,end=" ")
     print("を読み込みました.")
     # info file　のインポート
-    filename2 = filename.replace("main","info")
-    csv_file = open(filename2, "r", encoding="utf_8", errors="", newline="" )
+    csv_file = open(filename, "r", encoding="utf_8", errors="", newline="" )
     f = csv.reader(csv_file, delimiter=",", doublequote=True, lineterminator="\r\n", quotechar='"', skipinitialspace=True)
     header = next(f)
     for row in f: # データ読み込み

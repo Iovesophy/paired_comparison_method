@@ -21,14 +21,14 @@ def import_csv(): # 試料読み込み
     info=[]
 
     # ファイル名確認
-    return_code = subprocess.check_output(['ls','./../selector'])
+    return_code = subprocess.check_output(['ls','./../selector/data'])
     code = return_code.split(b"\n")
     for i in range(len(code)):
         stdout_txt = str(code[i]).replace("b","").replace('\'',"")
-        if re.search("csv",stdout_txt) and stdout_txt != "sample_info.csv":
+        if re.search("main.csv",stdout_txt) and stdout_txt != "sample_info.csv":
             print(stdout_txt)
     print("拡張子を含めて、解析したいmainデータファイル名を入力してください")
-    filename = './../selector/' + input()
+    filename = './../selector/data/' + input()
     print(filename,end=" ")
     print("を読み込みました.")
     print("集計開始してよろしいですか?y,n:", end=" ")

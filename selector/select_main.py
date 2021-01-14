@@ -12,7 +12,7 @@ import csv
 
 def welcome_mes(): # 起動時のメッセージ
     print("Welcome to 対比較法実験集計システムver2:2021,1,3")
-    print("Paired comparison method data processing software, TPCMDPS")
+    print("Paired comparison method data processing software, PCPS")
     print("made by kazuya yuda.")
 
 def exit_all(): # 終了処理
@@ -24,7 +24,7 @@ def permutations_count(n , r):
 def combinations_count(n, r):
     return math.factorial(n) // (math.factorial(n - r) * math.factorial(r))
 
-def initial_data_set(): # データ初期設定 
+def initial_data_set(): # データ初期設定
     data=[] # 統合的にデータを保持
 
     print("被験者情報を入力:",end=" ")
@@ -164,8 +164,8 @@ def result_export_process(data,integration_data,end_time): # CSV形式でエク�
     Coulum = ['比較データ左','比較データ右','選択結果']
     df_info = pd.DataFrame(data)
     df_main = pd.DataFrame(integration_data,columns=Coulum)
-    df_info.to_csv("%s%s%s_result_info.csv" % (data[0],"-",end_time))
-    df_main.to_csv("%s%s%s_result_main.csv" % (data[0],"-",end_time))
+    df_info.to_csv("./data/%s%s%s_result_info.csv" % (data[0],"-",end_time))
+    df_main.to_csv("./data/%s%s%s_result_main.csv" % (data[0],"-",end_time))
 
 def main(): # メインops
     welcome_mes() # welcomeメッセージ生成
@@ -186,9 +186,9 @@ def main(): # メインops
 
     # start
     data.append(start())
-    
+
     main_data=[] # 一対比較の実験データ格納用
-    
+
     option="none"
     for i in range(try_num): # 試行回数分イテレーション
         count = i + 1
