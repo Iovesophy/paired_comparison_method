@@ -8,6 +8,8 @@ https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 + Python 3.9.1 (default, Dec 24 2020, 16:23:16)  
 + macOS Big Sur ver11.1（このOSで動作を確認）  
 
+![plot](https://user-images.githubusercontent.com/15680172/104689637-35fc8180-5746-11eb-9cea-17d1be9a5cc0.gif)
+(Plotの様子)
 
 # 使い方
 
