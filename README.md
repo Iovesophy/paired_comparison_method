@@ -59,6 +59,8 @@ $ cd analyzer/
 $ sh reset.sh
 ```
 
+このツールは現在開発中です。（プルリク・イシューなどもらえると嬉しいです）
+
 License
 Copyright (c) 2021 Kazuya yuda. This software is released under the MIT License, see LICENSE.
 https://opensource.org/licenses/mit-license.php
