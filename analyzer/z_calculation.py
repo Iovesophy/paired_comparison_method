@@ -78,7 +78,7 @@ def get_n():
     path = './n.txt'
     with open(path) as f:
         s = f.read()
-    if s = "":
+    if s == "":
         print("一致性の検定が完了していません。")
         sys.exit()
     else:
