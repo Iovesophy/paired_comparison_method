@@ -170,7 +170,7 @@ def plot_scale(k,labellist,mean_z_val):
     #plt.vlines(x=np.arange(xmin,xmax+1,1),ymin=-0.2,ymax=0.2,colors='b') #目盛り線大
     #x=np.arange(xmin,xmax+1,1)
     #print(x)
-    plt.vlines(x=np.arange(xmin,xmax,0.1),ymin=-0.1,ymax=0.1,colors='k',lw=0.3) #目盛り線小
+    plt.vlines(x=np.arange(xmin,xmax,0.1),ymin=-0.1,ymax=0.1,colors='k',lw=1) #目盛り線小
     #x=np.arange(xmin,xmax,0.1)
     #print(x)
 

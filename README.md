@@ -13,7 +13,14 @@ https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 
 # 使い方
 
-セットアップ
+まず、sample_info.csvに試料情報を入力する
+
+```
+$ cd selector/
+$ vi selector/sample_info.csv
+```
+
+セットアップ(実験開始前に一度だけ実行してください)
 
 ```
 $ cd selector/
@@ -21,7 +28,6 @@ $ python3 selector/setup.py
 ```
 
 PCPS(実験補助機能)
-※実行前にsample_info.csvに試料情報を入力すること。
 
 ```
 $ cd selector/
@@ -59,11 +65,13 @@ $ cd analyzer/
 $ sh reset.sh
 ```
 
-このツールは現在開発中です。（プルリク・イシューなどもらえると嬉しいです）
+**このツールは現在開発中です。（プルリク・イシューなどもらえると嬉しいです）**
 
-License
+# License  
+
 Copyright (c) 2021 Kazuya yuda. This software is released under the MIT License, see LICENSE.
 https://opensource.org/licenses/mit-license.php
 
-Authors
+# Authors  
+
 kazuya yuda.
