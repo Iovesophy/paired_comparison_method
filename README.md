@@ -15,9 +15,6 @@ https://zenn.dev/_kazuya/articles/0e0c95f82cb931
 ```
 $ cd selector/
 $ python3 selector/setup.py
-
-$ cd analyzer/
-$ python3 analyzer/setup.py
 ```
 
 PCPS(実験補助機能)
@@ -47,5 +44,15 @@ PCZPS(サーストン法ケースV、標準得点Z算出、尺度プロット)
 ```
 $ cd analyzer/
 $ python3 z_calculation.py
+```
+
+実験のリセット(実験データが消えるので注意)
+
+```
+$ cd selector/
+$ sh reset.sh
+
+$ cd analyzer/
+$ sh reset.sh
 ```
 
