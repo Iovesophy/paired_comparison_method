@@ -55,6 +55,13 @@ $ cd analyzer/
 $ python3 z_calculation.py
 ```
 
+PCIC(内的整合性の検定)
+
+```
+$ cd analyzer/
+$ python3 internal_consistency_check.py
+```
+
 実験のリセット(実験データが消えるので注意)
 
 ```
@@ -65,7 +72,7 @@ $ cd analyzer/
 $ sh reset.sh
 ```
 
-**このツールは現在開発中です。（プルリク・イシューなどもらえると嬉しいです）**
+**このツールは現在開発中です。（pullrequestやissueなどもらえると嬉しいです）**
 
 # License  
 
