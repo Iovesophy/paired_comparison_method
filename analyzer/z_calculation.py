@@ -93,6 +93,8 @@ def conversion_p(array,n):
     conversion_array = array/n
     np.place(conversion_array, conversion_array == 0, 0.5)
     np.place(conversion_array, conversion_array == 1, 0.5)
+    print("conversion_p")
+    export_csv2(conversion_array)
     return conversion_array
 
 def conversion_z(array):
@@ -102,6 +104,7 @@ def conversion_z(array):
         #print(array[it.multi_index[0],it.multi_index[1]])
         #print(NormalDist().inv_cdf(array[it.multi_index[0],it.multi_index[1]]))
         array[it.multi_index[0],it.multi_index[1]] = NormalDist().inv_cdf(array[it.multi_index[0],it.multi_index[1]])
+    print("conversion_z")
     print(array)
     return array
 
@@ -118,7 +121,21 @@ def mean_z(conversion_z_array):
     print(np.mean(b_del, axis=1))
     return np.mean(b_del, axis=1)
 
-def plot_scale(k,labellist,mean_z_val):
+def export_csv(p,label,material,conversion_z_array):
+    na = np.array([label,p])
+    filename = './internal_consistency_data/' + "z_mean" + "_calculation_" + ".npy"
+    np.save(filename, na)
+    filename3 = './internal_consistency_data/' + "conversion_z_array" + "_calculation_" + ".npy"
+    np.save(filename3, conversion_z_array)
+    print("解析用ファイルが保存されました。")
+
+def export_csv2(data):
+    filename = './internal_consistency_data/' + "conversion_array" + "_calculation_" + ".npy"
+    np.save(filename, data)
+    print(data)
+    print("p解析用ファイルが保存されました。")
+
+def plot_scale(k,labellist,mean_z_val,material,conversion_z_array):
     #配列を生成
     labellist = labellist[0].replace("[","").replace("]","").replace("\'","").replace(" ","").split(",")
     combine = sorted(zip(mean_z_val,labellist))
@@ -126,6 +143,7 @@ def plot_scale(k,labellist,mean_z_val):
     p,labellist = zip(*combine)
     p = list(p)
     labellist = list(labellist)
+    export_csv(p,labellist,material,conversion_z_array)
 
     y = [0]*k #y=0
     print(mean_z_val,labellist,p,y,k)
@@ -139,18 +157,21 @@ def plot_scale(k,labellist,mean_z_val):
 
     #数値表示
     for i in range(int(k/2)):
-        print(i)
+        #print(i)
         view_v = '{:.2f}'.format(p[2*i])
         ax.annotate(view_v,xy=(p[2*i],y[2*i]),xytext=(10, 20),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
 
     for i in range(int(k/2)):
-        print(i)
+        #print(i)
         view_v = '{:.2f}'.format(p[2*i+1])
         ax.annotate(view_v,xy=(p[2*i+1],y[2*i+1]),xytext=(10,-40),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
+        if k % 2 == 0:
+            pass
+        else:
+            view_v = '{:.2f}'.format(p[k-1])
+            ax.annotate(view_v,xy=(p[k-1],y[k-1]),xytext=(10,-40),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
 
     xmin, xmax= round(p[0])-.5,round(p[k-1])+.5 #数直線の最小値・最大値
-    plt.tight_layout() #グラフの自動調整
-
     plt.subplots_adjust(left=0, right=1, bottom=0.2, top=0.8) #微調整
 
     markerlist = ['.','o','d','X','s','v','*','x','p','P','2']
@@ -179,7 +200,6 @@ def plot_scale(k,labellist,mean_z_val):
     plt.xticks(np.arange(xmin,xmax+line_width,line_width)) #目盛り数値
     pylab.box(False) #枠を消す
 
-
     plt.show() #表示
 
 def main():
@@ -191,7 +211,8 @@ def main():
     conversion_z_array = conversion_z(conversion_array)
     sum_z_val = sum_z(conversion_z_array)
     mean_z_val = mean_z(conversion_z_array)
-    plot_scale(k,labellist,mean_z_val)
+    print(material_import[0])
+    plot_scale(k,labellist,mean_z_val,material_import[0],conversion_z_array)
 
 if __name__ == "__main__":
     main()

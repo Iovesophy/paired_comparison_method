@@ -17,7 +17,7 @@ def welcome_mes(): # 起動時のメッセージ
     print("made by kazuya yuda.")
 
 def import_csv(): # 試料読み込み
-    material=['','','']
+    material=[0]*3
     loop_ans = 0
     count = 0
     n = 1
