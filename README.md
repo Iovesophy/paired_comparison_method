@@ -34,6 +34,8 @@ $ cd selector/
 $ python3 select_main.py
 ```
 
+<img width="680" alt="frow1" src="https://user-images.githubusercontent.com/15680172/104824724-baaae500-5897-11eb-9f9c-47e282f03792.png">
+
 PCVS(集計,一意性の検定)
 
 ```
