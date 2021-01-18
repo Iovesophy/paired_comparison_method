@@ -20,7 +20,7 @@ def import_csv(): # 試料読み込み
     material=[0]*3
     loop_ans = 0
     count = 0
-    n = 1
+    n = 1\0
     print("一括で解析済みデータを読み込みますか？y,n:",end = " ")
     all_import_ans = input()
     if all_import_ans == "y":
