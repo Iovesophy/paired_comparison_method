@@ -165,11 +165,12 @@ def plot_scale(k,labellist,mean_z_val,material,conversion_z_array):
         #print(i)
         view_v = '{:.2f}'.format(p[2*i+1])
         ax.annotate(view_v,xy=(p[2*i+1],y[2*i+1]),xytext=(10,-40),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
-        if k % 2 == 0:
-            pass
-        else:
-            view_v = '{:.2f}'.format(p[k-1])
-            ax.annotate(view_v,xy=(p[k-1],y[k-1]),xytext=(10,-40),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
+
+    if k % 2 == 0:
+        pass
+    else:
+        view_v = '{:.2f}'.format(p[k-1])
+        ax.annotate(view_v,xy=(p[k-1],y[k-1]),xytext=(10,-40),textcoords='offset points',arrowprops=dict(arrowstyle="->"))
 
     xmin, xmax= round(p[0])-.5,round(p[k-1])+.5 #数直線の最小値・最大値
     plt.subplots_adjust(left=0, right=1, bottom=0.2, top=0.8) #微調整
